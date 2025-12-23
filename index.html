@@ -1,273 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fancy & Fun Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        /* --- CSS VARIABLES & RESET --- */
-        :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --text-dark: #1a1a2e;
-            --text-light: #f0f0f3;
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.4);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* --- BACKGROUND ANIMATION (The "Fun" part) --- */
-        .blob-cont {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .blob {
-            position: absolute;
-            filter: blur(80px);
-            opacity: 0.7;
-            animation: float 20s infinite ease-in-out alternate;
-        }
-
-        .blob-1 {
-            background-color: #ff9a9e;
-            width: 400px;
-            height: 400px;
-            top: -100px;
-            left: -100px;
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-        }
-
-        .blob-2 {
-            background-color: #a18cd1;
-            width: 500px;
-            height: 500px;
-            bottom: -150px;
-            right: -150px;
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(100px, 50px) rotate(20deg); }
-            100% { transform: translate(-50px, 100px) rotate(-10deg); }
-        }
-
-        /* --- MAIN CONTAINER --- */
-        .container {
-            max-width: 900px;
-            width: 100%;
-            z-index: 2;
-        }
-
-        /* --- GLASSMORPHISM CARD STYLE (The "Fancy" part) --- */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px); /* Safari support */
-            border: 2px solid var(--glass-border);
-            border-radius: 25px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-            padding: 40px;
-            margin-bottom: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.2);
-        }
-
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--text-dark);
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        /* A fun underline effect for titles */
-        h2::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 50px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-        }
-
-        p {
-            line-height: 1.6;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        /* --- HEADER SECTION specific --- */
-        .header-section {
-            text-align: center;
-        }
-        
-        .emoji-header {
-            font-size: 4rem;
-            display: block;
-            margin-bottom: 10px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-	        40% {transform: translateY(-20px);}
-	        60% {transform: translateY(-10px);}
-        }
-
-        /* --- PROJECTS GRID --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .project-item {
-            background: rgba(255,255,255,0.5);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-        }
-        
-        .project-item:hover {
-             background: rgba(255,255,255,0.8);
-             transform: scale(1.03) rotate(1deg);
-        }
-        
-        .project-emoji {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        /* --- BUTTONS & LINKS --- */
-        .fancy-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: none;
-        }
-
-        .fancy-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            opacity: 0.8;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="blob-cont">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
+  <head>
+ <link rel="shortcut icon" type="image/jpeg" href="293.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sad Spongebob</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <div class="image-cube">
+          <div class="front">
+            <img src="293.jpg" />
+          </div>
+          <div class="right">
+            <img src="293.jpg" />
+          </div>
+          <div class="back">
+            <img src="293.jpg" />
+          </div>
+          <div class="left">
+            <img src="293.jpg" />
+          </div>
+        </div>
+      </div>
+      <div class="btns">
+        <button id="prev">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <button id="next">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
-
-    <div class="container">
-        <section class="glass-card header-section">
-            <span class="emoji-header">👋</span>
-            <h1>Hello, I'm [Your Name].</h1>
-            <p style="font-size: 1.3rem;">Creative Developer & Digital Craftsman.</p>
-            <p>I design and build digital experiences that are as delightful to use as they are to look at.</p>
-            <br>
-            <a href="#contact" class="fancy-btn">✨ Let's Connect</a>
-        </section>
-
-        <section class="glass-card">
-            <h2>My Playground</h2>
-            <p>A few things I've been tinkering with lately.</p>
-            
-            <div class="projects-grid">
-                <div class="project-item">
-                    <div class="project-emoji">🚀</div>
-                    <h3>Project Neon</h3>
-                    <p>A high-performance React dashboard with a futuristic UI.</p>
-                </div>
-                <div class="project-item">
-                    <div class="project-emoji">🎨</div>
-                    <h3>Palette Generator</h3>
-                    <p>A fun tool that uses AI to generate color schemes from vibes.</p>
-                </div>
-                 <div class="project-item">
-                    <div class="project-emoji">🎮</div>
-                    <h3>JS Kaboom</h3>
-                    <p>A browser-based physics engine built just for chaotic fun.</p>
-                </div>
-            </div>
-             <br>
-            <div style="text-align: center;">
-                <a href="https://github.com" class="fancy-btn" style="background: #333;">View GitHub Profile 🐙</a>
-            </div>
-        </section>
-
-        <section class="glass-card" id="contact">
-            <h2>Drop a Line</h2>
-            <p>Currently open for collaborations, interesting freelance opportunities, or just a virtual coffee chat.</p>
-            <p><strong>📬 Email:</strong> hello@yourfancyemail.com</p>
-        </section>
-
-        <footer>
-            <p>Designed with ✨ & ☕️ by [Your Name] © 2025</p>
-        </footer>
-    </div>
-
-</body>
-</html>
+    <!-- Script -->
+    <script src="script.js"></script>
+  </body>
+  
+ 
